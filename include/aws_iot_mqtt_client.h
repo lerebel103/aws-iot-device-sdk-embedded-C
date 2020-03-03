@@ -144,8 +144,8 @@ typedef struct {
 } IoT_Client_Connect_Params;
 extern const IoT_Client_Connect_Params iotClientConnectParamsDefault;
 
-#define IoT_Client_Connect_Params_initializer { {'M', 'Q', 'T', 'C'}, MQTT_3_1_1, NULL, 0, 60, true, false, \
-        IoT_MQTT_Will_Options_Initializer, NULL, 0, NULL, 0 }
+#define IoT_Client_Connect_Params_initializer { {'M', 'Q', 'T', 'C'}, MQTT_3_1_1, NULL, 0, \
+    CONFIG_AWS_IOT_MQTT_KEEPALIVE_INTERVAL, true, false, IoT_MQTT_Will_Options_Initializer, NULL, 0, NULL, 0 }
 
 /**
  * @brief Disconnect Callback Handler Type
