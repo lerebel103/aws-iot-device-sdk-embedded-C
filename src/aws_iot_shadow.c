@@ -69,8 +69,9 @@ IoT_Error_t aws_iot_shadow_free(AWS_IoT_Client *pClient)
     FUNC_EXIT_RC(rc);
 }
 
-IoT_Error_t aws_iot_shadow_init(AWS_IoT_Client *pClient, ShadowInitParameters_t *pParams) {
+IoT_Error_t aws_iot_shadow_init(AWS_IoT_Client *pClient, const ShadowInitParameters_t *pParams) {
 	IoT_Client_Init_Params mqttInitParams = IoT_Client_Init_Params_initializer;
+
 	IoT_Error_t rc;
 
 	FUNC_ENTRY;
@@ -103,7 +104,7 @@ IoT_Error_t aws_iot_shadow_init(AWS_IoT_Client *pClient, ShadowInitParameters_t 
 	FUNC_EXIT_RC(SUCCESS);
 }
 
-IoT_Error_t aws_iot_shadow_connect(AWS_IoT_Client *pClient, ShadowConnectParameters_t *pParams) {
+IoT_Error_t aws_iot_shadow_connect(AWS_IoT_Client *pClient, const ShadowConnectParameters_t *pParams) {
 	IoT_Error_t rc = SUCCESS;
 	uint16_t deleteAcceptedTopicLen;
 	IoT_Client_Connect_Params ConnectParams = iotClientConnectParamsDefault;
@@ -117,7 +118,8 @@ IoT_Error_t aws_iot_shadow_connect(AWS_IoT_Client *pClient, ShadowConnectParamet
 	snprintf(myThingName, MAX_SIZE_OF_THING_NAME, "%s", pParams->pMyThingName);
 	snprintf(mqttClientID, MAX_SIZE_OF_UNIQUE_CLIENT_ID_BYTES, "%s", pParams->pMqttClientId);
 
-	ConnectParams.keepAliveIntervalInSec = 600; // NOTE: Temporary fix
+	// Pick up desired keep alive interval from configuration
+	ConnectParams.keepAliveIntervalInSec = CONFIG_AWS_IOT_MQTT_KEEPALIVE_INTERVAL;
 	ConnectParams.MQTTVersion = MQTT_3_1_1;
 	ConnectParams.isCleanSession = true;
 	ConnectParams.isWillMsgPresent = false;
