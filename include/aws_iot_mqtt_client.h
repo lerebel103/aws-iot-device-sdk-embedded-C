@@ -366,7 +366,7 @@ uint16_t aws_iot_mqtt_get_next_packet_id(AWS_IoT_Client *pClient);
  * or @ref mqtt_function_yield.
  */
 /* @[declare_mqtt_set_connect_params] */
-IoT_Error_t aws_iot_mqtt_set_connect_params(AWS_IoT_Client *pClient, IoT_Client_Connect_Params *pNewConnectParams);
+IoT_Error_t aws_iot_mqtt_set_connect_params(AWS_IoT_Client *pClient, const IoT_Client_Connect_Params *pNewConnectParams);
 /* @[declare_mqtt_set_connect_params] */
 
 /**
